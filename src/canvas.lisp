@@ -1,7 +1,8 @@
 (defpackage canvas
   (:use :cl :colors)
-  (:export :canvas :make-canvas :canvas-width :canvas-height :canvas-buffer :canvas-p
-           :init-canvas :write-pixel :pixel-at :canvas-to-ppm))
+  (:export :canvas :make-canvas :canvas-width :canvas-height :canvas-buffer
+   :canvas-p :init-canvas :write-pixel :pixel-at :canvas-to-ppm
+           :canvas-to-file))
 
 (in-package :canvas)
 
@@ -50,5 +51,14 @@
         ((= row end) t)
         (canvas-to-ppm-row c strm row)
       )
+    )
+  )
+
+(defun canvas-to-file (c filename)
+  (with-open-file (stream (merge-pathnames (make-pathname :name filename))
+                          :direction :output
+                          :if-exists :supersede
+                          :if-does-not-exist :create)
+    (canvas-to-ppm c stream)
     )
   )
