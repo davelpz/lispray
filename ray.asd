@@ -1,7 +1,7 @@
 (defsystem "ray"
   :version "0.1.0"
-  :author ""
-  :license ""
+  :author "davelpz@gmail.com"
+  :license "MIT"
   :depends-on ()
   :components ((:module "src"
                 :components
