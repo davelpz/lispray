@@ -1,6 +1,6 @@
 (defpackage tuples
   (:use :cl)
-  (:export :tuple :make-tuple :tuple-x :tuple-y :tuple-z :tuple-w :tuple-p :make-point :make-vector :point-p :vector-p :add :sub :neg :magnitude :normalize :dot :cross)
+  (:export :tuple :make-tuple :tuple-x :tuple-y :tuple-z :tuple-w :tuple-p :make-point :make-vector :point-p :vector-p :add :sub :neg :magnitude :normalize :dot :cross :at :put)
   )
 
 (in-package :tuples)
@@ -128,4 +128,20 @@
                (- (* (tuple-x t1) (tuple-y t2))
                   (* (tuple-y t1) (tuple-x t2)))
               )
+  )
+
+(defun at (tup i)
+  (cond ((= i 0) (tuple-x tup))
+        ((= i 1) (tuple-y tup))
+        ((= i 2) (tuple-z tup))
+        ((= i 3) (tuple-w tup))
+        )
+  )
+
+(defun put (tup i v)
+  (cond ((= i 0) (setf (tuple-x tup) v))
+        ((= i 1) (setf (tuple-y tup) v))
+        ((= i 2) (setf (tuple-z tup) v))
+        ((= i 3) (setf (tuple-w tup) v))
+        )
   )
