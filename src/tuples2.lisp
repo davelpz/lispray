@@ -8,7 +8,7 @@
 (in-package :tuples)
 
 (defclass tuple ()
-  ((data :initarg :value :initform (make-array 4 :initial-element 0.0 :element-type 'single-float) :accessor get-value)))
+  ((data :initarg :value :initform (make-array 4 :initial-element 0.0 :element-type 'single-float) :accessor get-value :type (simple-array single-float (4)))))
 
 (defmethod get-x ((tup tuple)) (aref (slot-value tup 'data) 0))
 (defmethod get-y ((tup tuple)) (aref (slot-value tup 'data) 1))
@@ -20,10 +20,10 @@
 (defmethod set-w ((tup tuple) (value number)) (setf (aref (slot-value tup 'data) 3) value))
 
 (defun make-point (x y z)
-  (make-instance 'tuple :value (make-array 4 :initial-contents (list x y z 1.0))))
+  (make-instance 'tuple :value (make-array 4 :initial-contents (list (float x) (float y) (float z) 1.0) :element-type 'single-float)))
 
 (defun make-vector (x y z)
-  (make-instance 'tuple :value (make-array 4 :initial-contents (list x y z 0.0))))
+  (make-instance 'tuple :value (make-array 4 :initial-contents (list (float x) (float y) (float z) 0.0) :element-type 'single-float)))
 
 (defun point-p (p)
   (and (typep p 'tuple) (equal (get-w p) 1.0)))
@@ -35,43 +35,43 @@
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (+ (get-x t1) (get-x t2))
                                                                      (+ (get-y t1) (get-y t2))
                                                                      (+ (get-z t1) (get-z t2))
-                                                                     (+ (get-w t1) (get-w t2))))))
+                                                                     (+ (get-w t1) (get-w t2))) :element-type 'single-float)))
 
 (defmethod add ((t1 tuple) (t2 number))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (+ (get-x t1) t2)
                                                                      (+ (get-y t1) t2)
                                                                      (+ (get-z t1) t2)
-                                                                     (+ (get-w t1) t2)))))
+                                                                     (+ (get-w t1) t2)) :element-type 'single-float)))
 
 (defmethod add ((t1 number) (t2 tuple))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (+ t1 (get-x t2))
                                                                      (+ t1 (get-y t2))
                                                                      (+ t1 (get-z t2))
-                                                                     (+ t1 (get-w t2))))))
+                                                                     (+ t1 (get-w t2))) :element-type 'single-float)))
 
 (defmethod sub ((t1 tuple) (t2 tuple))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (- (get-x t1) (get-x t2))
                                                                      (- (get-y t1) (get-y t2))
                                                                      (- (get-z t1) (get-z t2))
-                                                                     (- (get-w t1) (get-w t2))))))
+                                                                     (- (get-w t1) (get-w t2))) :element-type 'single-float)))
 
 (defmethod sub ((t1 tuple) (t2 number))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (- (get-x t1) t2)
                                                                      (- (get-y t1) t2)
                                                                      (- (get-z t1) t2)
-                                                                     (- (get-w t1) t2)))))
+                                                                     (- (get-w t1) t2)) :element-type 'single-float)))
 
 (defmethod sub ((t1 number) (t2 tuple))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (- t1 (get-x t2))
                                                                      (- t1 (get-y t2))
                                                                      (- t1 (get-z t2))
-                                                                     (- t1 (get-w t2))))))
+                                                                     (- t1 (get-w t2))) :element-type 'single-float)))
 
 (defmethod neg ((t1 tuple))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (- t1)
                                                                      (- t1)
                                                                      (- t1)
-                                                                     (- t1)))))
+                                                                     (- t1)) :element-type 'single-float)))
 
 (defmethod mul ((t1 tuple) (t2 number))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (* (get-x t1) t2)
@@ -83,14 +83,14 @@
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (* t1 (get-x t2))
                                                                      (* t1 (get-y t2))
                                                                      (* t1 (get-z t2))
-                                                                     (* t1 (get-w t2))))))
+                                                                     (* t1 (get-w t2))) :element-type 'single-float)))
 
 
 (defmethod div ((t1 tuple) (t2 number))
   (make-instance 'tuple :value (make-array 4 :initial-contents (list (/ (get-x t1) t2)
                                                                      (/ (get-y t1) t2)
                                                                      (/ (get-z t1) t2)
-                                                                     (/ (get-w t1) t2)))))
+                                                                     (/ (get-w t1) t2)) :element-type 'single-float)))
 
 (defmethod magnitude ((t1 tuple))
   (sqrt (+ (* (get-x t1) (get-x t1))
@@ -105,7 +105,7 @@
     (make-instance 'tuple :value (make-array 4 :initial-contents (list (/ (get-x t1) mag)
                                                                        (/ (get-y t1) mag)
                                                                        (/ (get-z t1) mag)
-                                                                       (/ (get-w t1) mag))))
+                                                                       (/ (get-w t1) mag)) :element-type 'single-float))
     )
   )
 
