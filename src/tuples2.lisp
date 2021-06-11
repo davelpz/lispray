@@ -6,7 +6,7 @@
 (in-package :tuples)
 
 (defclass tuple ()
-  ((data :initarg :value :initform (make-array 4 :initial-element 0.0))))
+  ((data :initarg :value :initform (make-array 4 :initial-element 0.0 :element-type 'single-float))))
 
 (defun make-point (x y z)
   (make-instance 'tuple :data (make-array 4 :initial-contents (list x y z 1.0))))
