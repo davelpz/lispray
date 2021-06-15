@@ -1,10 +1,10 @@
-(defpackage ray/tests/main
+(defpackage lispray/tests/main
   (:use :cl
-        :ray
+        :lispray
         :rove))
-(in-package :ray/tests/main)
+(in-package :lispray/tests/main)
 
-;; NOTE: To run this test file, execute `(asdf:test-system :ray)' in your Lisp.
+;; NOTE: To run this test file, execute `(asdf:test-system :lispray)' in your Lisp.
 
 (deftest test-target-1
   (testing "should (= 1 1) to be true"

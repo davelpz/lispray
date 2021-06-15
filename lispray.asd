@@ -1,21 +1,21 @@
-(defsystem "ray"
+(defsystem "lispray"
   :version "0.1.0"
   :author "davelpz@gmail.com"
   :license "MIT"
   :depends-on ()
   :components ((:module "src"
                 :components
-                ((:file "main"))))
+                ((:file "main") (:file "tuples"))))
   :description ""
-  :in-order-to ((test-op (test-op "ray/tests"))))
+  :in-order-to ((test-op (test-op "lispray/tests"))))
 
-(defsystem "ray/tests"
+(defsystem "lispray/tests"
   :author ""
   :license ""
-  :depends-on ("ray"
+  :depends-on ("lispray"
                "rove")
   :components ((:module "tests"
                 :components
-                ((:file "main"))))
-  :description "Test system for ray"
+                ((:file "main") (:file "tuples"))))
+  :description "Test system for lispray"
   :perform (test-op (op c) (symbol-call :rove :run c)))

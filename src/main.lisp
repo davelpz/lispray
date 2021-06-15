@@ -1,5 +1,5 @@
-(defpackage ray
+(defpackage lispray
   (:use :cl))
-(in-package :ray)
+(in-package :lispray)
 
 ;; blah blah blah.
