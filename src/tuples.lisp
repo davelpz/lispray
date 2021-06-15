@@ -1,7 +1,7 @@
 (defpackage tuples
   (:use :cl)
   (:export :get-x :get-y :get-z :get-w :set-x :set-y :set-z :set-w
-           :make-point :make-vector :point-p :vector-p :add :sub :mul
+           :make-tuple :make-point :make-vector :point-p :vector-p :add :sub :mul
    :div :neg :magnitude :normalize :dot :cross))
 
 (in-package :tuples)
