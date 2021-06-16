@@ -1,11 +1,15 @@
-
+;;
 (defpackage matrix
   (:use :cl)
   (:export :make-matrix :set-xy :get-xy
-           :matrix-p :equals? :matrix-dim :mul :mul-tup))
+           :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4))
 
 (in-package :matrix)
 
+(defparameter identity4 #2A ((1.0d0 0.0d0 0.0d0 0.0d0)
+                            (0.0d0 1.0d0 0.0d0 0.0d0)
+                            (0.0d0 0.0d0 1.0d0 0.0d0)
+                            (0.0d0 0.0d0 0.0d0 1.0d0)))
 (defun matrix-p (mat)
   (and (= (array-rank mat) 2)
        (= (array-dimension mat 0) (array-dimension mat 1))))

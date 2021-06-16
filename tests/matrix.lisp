@@ -82,7 +82,14 @@
         )
     (testing "should be true"
       (ok (equalp (mul-tup mat1 tup1) #(18.0d0 24.0d0 33.0d0 1.0d0))))
-    )  
+    )
+  (let ((mat1 #2A((1.0d0 2.0d0 3.0d0 4.0d0)
+                  (2.0d0 4.0d0 4.0d0 2.0d0)
+                  (8.0d0 6.0d0 4.0d0 1.0d0)
+                  (0.0d0 0.0d0 0.0d0 1.0d0))))
+    (testing "should be true"
+      (ok (equalp (mul mat1 identity4) mat1)))
+    )
   )
 
 
