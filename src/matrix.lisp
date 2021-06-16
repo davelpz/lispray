@@ -2,7 +2,8 @@
 (defpackage matrix
   (:use :cl)
   (:export :make-matrix :set-xy :get-xy
-           :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4))
+   :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
+   :transpose))
 
 (in-package :matrix)
 
@@ -54,8 +55,12 @@
         (setf (aref result row) val)))
     result))
 
-;; (defun mul (m1 m2)
-;;   (cond ((and (matrix-p m1) (matrix-p m2)) (mul-mat m1 m2))
-;;         ((and (matrix-p m1) (tuples:tuple-p m2)) (mul-mat-tup m1 m2))
-;;         )
-;;   )
+(defun transpose (m1)
+  (let ((result (make-matrix (matrix-dim m1))))
+    (dotimes (row (matrix-dim m1))
+      (dotimes (col (matrix-dim m1))
+        (set-xy result col row (get-xy m1 row col))
+        )      
+      )
+    result)
+  )

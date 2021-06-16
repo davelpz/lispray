@@ -92,4 +92,19 @@
     )
   )
 
+(deftest matrix-operations
+  (let ((mat1 #2A((0.0d0 9.0d0 3.0d0 0.0d0)
+                  (9.0d0 8.0d0 0.0d0 8.0d0)
+                  (1.0d0 8.0d0 5.0d0 3.0d0)
+                  (0.0d0 0.0d0 5.0d0 8.0d0)))
+        (mat2 #2A((0.0d0 9.0d0 1.0d0 0.0d0)
+                  (9.0d0 8.0d0 8.0d0 0.0d0)
+                  (3.0d0 0.0d0 5.0d0 5.0d0)
+                  (0.0d0 8.0d0 3.0d0 8.0d0))))
+    (testing "should be true"
+      (ok (equals? (transpose mat1) mat2)))
+    (testing "transpose of identity is identity"
+      (ok (equals? (transpose identity4) identity4)))
+    )
+  )
 
