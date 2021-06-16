@@ -62,4 +62,71 @@
     (testing "should be true"
       (ok (equalp (sub v1 v2) (make-vector -2.0d0 -4.0d0 -6.0d0))))
     )
+  (let ((v1 (make-vector 0.0d0 0.0d0 0.0d0))
+        (v2 (make-vector 1.0d0 -2.0d0 3.0d0)))
+    (testing "should be true"
+      (ok (equalp (sub v1 v2) (make-vector -1.0d0 2.0d0 -3.0d0))))
+    )
+  (let ((v2 (make-vector 1.0d0 -2.0d0 3.0d0)))
+    (testing "should be true"
+      (ok (equalp (neg v2) (make-vector -1.0d0 2.0d0 -3.0d0))))
+    )  
+  (let ((v2 (make-tuple 1.0d0 -2.0d0 3.0d0 -4.0d0)))
+    (testing "should be true"
+      (ok (equalp (mul v2 3.5d0) (make-tuple 3.5d0 -7.0d0 10.5d0 -14.0d0))))
+    )
+  (let ((v2 (make-tuple 1.0d0 -2.0d0 3.0d0 -4.0d0)))
+    (testing "should be true"
+      (ok (equalp (mul v2 0.5d0) (make-tuple 0.5d0 -1.0d0 1.5d0 -2.0d0))))
+    )
+  (let ((v2 (make-tuple 1.0d0 -2.0d0 3.0d0 -4.0d0)))
+    (testing "should be true"
+      (ok (equalp (div v2 2.0d0) (make-tuple 0.5d0 -1.0d0 1.5d0 -2.0d0))))
+    )
+  (let ((v2 (make-vector 1.0d0 0.0d0 0.0d0)))
+    (testing "should be true"
+      (ok (= (magnitude v2) 1.0d0)))
+    )
+  (let ((v2 (make-vector 0.0d0 1.0d0 0.0d0)))
+    (testing "should be true"
+      (ok (= (magnitude v2) 1.0d0)))
+    )
+  (let ((v2 (make-vector 0.0d0 0.0d0 1.0d0)))
+    (testing "should be true"
+      (ok (= (magnitude v2) 1.0d0)))
+    )
+  (let ((v2 (make-vector 1.0d0 2.0d0 3.0d0)))
+    (testing "should be true"
+      (ok (= (magnitude v2) (sqrt 14.0d0))))
+    )
+  (let ((v2 (make-vector -1.0d0 -2.0d0 -3.0d0)))
+    (testing "should be true"
+      (ok (= (magnitude v2) (sqrt 14.0d0))))
+    )
+  (let ((v2 (make-vector 4.0d0 0.0d0 0.0d0))
+        (ans (make-vector 1.0d0 0.0d0 0.0d0)))
+    (testing "should be true"
+      (ok (equalp (normalize v2) ans)))
+    )
+  (let ((v2 (make-vector 1.0d0 2.0d0 3.0d0))
+        (ans (make-vector (/ 1 (sqrt 14.0d0)) (/ 2 (sqrt 14.0d0)) (/ 3 (sqrt 14.0d0)))))
+    (testing "should be true"
+      (ok (equalp (normalize v2) ans)))
+    )
+  (let ((v2 (make-vector 1.0d0 2.0d0 3.0d0))
+        (ans (make-vector (/ 1 (sqrt 14.0d0)) (/ 2 (sqrt 14.0d0)) (/ 3 (sqrt 14.0d0)))))
+    (testing "should be true"
+      (ok (= (magnitude (normalize v2)) 1.0d0)))
+    )
+  (let ((v1 (make-vector 1.0d0 2.0d0 3.0d0))
+        (v2 (make-vector 2.0d0 3.0d0 4.0d0)))
+    (testing "should be true"
+      (ok (= (dot v1 v2) 20.0d0)))
+    )
+  (let ((v1 (make-vector 1.0d0 2.0d0 3.0d0))
+        (v2 (make-vector 2.0d0 3.0d0 4.0d0)))
+    (testing "should be true"
+      (ok (equalp (cross v1 v2) (make-vector -1.0d0 2.0d0 -1.0d0)))
+      (ok (equalp (cross v2 v1) (make-vector 1.0d0 -2.0d0  1.0d0))))
+    )  
   )
