@@ -132,5 +132,12 @@
     (testing "should be true"
       (ok (equals? (submatrix mat1 2 1) ans)))
     )
+  (let ((mat1 #2A((3.0d0 5.0d0 0.0d0)
+                  (2.0d0 -1.0d0 -7.0d0)
+                  (6.0d0 -1.0d0 5.0d0)
+                  )))
+    (testing "should be true"
+      (ok (= (minor mat1 1 0) 25.0d0)))
+    )
   )
 

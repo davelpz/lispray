@@ -3,7 +3,7 @@
   (:use :cl)
   (:export :make-matrix :set-xy :get-xy
    :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
-   :transpose :determinant :submatrix))
+   :transpose :determinant :submatrix :minor))
 
 (in-package :matrix)
 
@@ -83,4 +83,8 @@
                 (incf c)))
             (incf r))))
     result)  
+  )
+
+(defun minor (m row col)
+  (determinant (submatrix m row col))
   )
