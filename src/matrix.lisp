@@ -1,10 +1,10 @@
 ;;
 (defpackage matrix
   (:use :cl)
-  :export :make-matrix :set-xy :get-xy
-  :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
-  :transpose :determinant :submatrix :minor :cofactor
-  :inverse)
+  (:export :make-matrix :set-xy :get-xy
+   :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
+   :transpose :determinant :submatrix :minor :cofactor
+           :inverse))
 
 (in-package :matrix)
 
