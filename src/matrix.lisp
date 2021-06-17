@@ -1,9 +1,10 @@
 ;;
 (defpackage matrix
   (:use :cl)
-  (:export :make-matrix :set-xy :get-xy
-   :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
-   :transpose :determinant :submatrix :minor :cofactor))
+  :export :make-matrix :set-xy :get-xy
+  :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
+  :transpose :determinant :submatrix :minor :cofactor
+  :inverse)
 
 (in-package :matrix)
 
@@ -97,3 +98,13 @@
       (- (minor m row col))
       (minor m row col))
   )
+
+(defun inverse (m)
+  (let ((det (determinant m)))
+    (if (= det 0.0d0)
+        (error "determinant can't be zero")
+        (let ((result (make-matrix (matrix-dim m))))
+          (dotimes (row (matrix-dim m))
+            (dotimes (col (matrix-dim m))
+              (set-xy result col row (/  (cofactor m row col) det))))
+          result))))
