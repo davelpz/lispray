@@ -3,7 +3,7 @@
   (:use :cl)
   (:export :make-matrix :set-xy :get-xy
    :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
-   :transpose))
+   :transpose :determinant :submatrix))
 
 (in-package :matrix)
 
@@ -63,4 +63,24 @@
         )      
       )
     result)
+  )
+
+(defun determinant (m)
+  (cond ((= (matrix-dim m) 2) (- (* (get-xy m 0 0) (get-xy m 1 1)) (* (get-xy m 0 1) (get-xy m 1 0))))
+        )
+  )
+
+(defun submatrix (m row-to-delete col-to-delete)
+  (let ((result (make-matrix (- (matrix-dim m) 1)))
+        (r 0))
+    (dotimes (row (matrix-dim m))
+      (let ((c 0))
+        (unless (= row row-to-delete)
+            (dotimes (col (matrix-dim m))
+              (unless (= col col-to-delete)
+                ;;(format t "r=~a  c=~a    row=~a  col=~a~%" r c row col)
+                (set-xy result r c (get-xy m row col))
+                (incf c)))
+            (incf r))))
+    result)  
   )

@@ -106,5 +106,31 @@
     (testing "transpose of identity is identity"
       (ok (equals? (transpose identity4) identity4)))
     )
+  (let ((mat1 #2A((1.0d0 5.0d0)
+                  (-3.0d0 2.0d0)
+                  )))
+    (testing "should be true"
+      (ok (= (determinant mat1) 17.0d0)))
+    )
+  (let ((mat1 #2A((1.0d0 5.0d0 0.0d0)
+                  (-3.0d0 2.0d0 7.0d0)
+                  (0.0d0 6.0d0 -3.0d0)
+                  )))
+    (testing "should be true"
+      (ok (equals? (submatrix mat1 0 0) #2A ((2.0d0 7.0d0) (6.0d0 -3.0d0)))))
+    (testing "should be true"
+      (ok (equals? (submatrix mat1 0 2) #2A ((-3.0d0 2.0d0) (0.0d0 6.0d0)))))
+    )
+  (let ((mat1 #2A((-6.0d0 1.0d0 1.0d0 6.0d0)
+                  (-8.0d0 5.0d0 8.0d0 6.0d0)
+                  (-1.0d0 0.0d0 8.0d0 2.0d0)
+                  (-7.0d0 1.0d0 -1.0d0 1.0d0)
+                  ))
+        (ans #2A ((-6.0d0 1.0d0 6.0d0)
+                  (-8.0d0 8.0d0 6.0d0)
+                  (-7.0d0 -1.0d0 1.0d0))))
+    (testing "should be true"
+      (ok (equals? (submatrix mat1 2 1) ans)))
+    )
   )
 
