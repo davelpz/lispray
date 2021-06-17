@@ -138,6 +138,43 @@
                   )))
     (testing "should be true"
       (ok (= (minor mat1 1 0) 25.0d0)))
+    (testing "should be true"
+      (ok (= (minor mat1 0 0) -12.0d0)))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 0) -12.0d0)))
+    (testing "should be true"
+      (ok (= (minor mat1 1 0) 25.0d0)))
+    (testing "should be true"
+      (ok (= (cofactor mat1 1 0) -25.0d0)))
+    )
+  (let ((mat1 #2A((1.0d0 2.0d0 6.0d0)
+                  (-5.0d0 8.0d0 -4.0d0)
+                  (2.0d0 6.0d0 4.0d0)
+                  )))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 0) 56.0d0)))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 1) 12.0d0)))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 2) -46.0d0)))
+    (testing "should be true"
+      (ok (= (determinant mat1) -196.0d0)))
+    )
+  (let ((mat1 #2A((-2.0d0 -8.0d0 3.0d0 5.0d0)
+                  (-3.0d0 1.0d0 7.0d0 3.0d0)
+                  (1.0d0 2.0d0 -9.0d0 6.0d0)
+                  (-6.0d0 7.0d0 7.0d0 -9.0d0)
+                  )))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 0) 690.0d0)))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 1) 447.0d0)))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 2) 210.0d0)))
+    (testing "should be true"
+      (ok (= (cofactor mat1 0 3) 51.0d0)))
+    (testing "should be true"
+      (ok (= (determinant mat1) -4071.0d0)))
     )
   )
 
