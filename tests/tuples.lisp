@@ -6,6 +6,29 @@
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :tuples)' in your Lisp.
 
+(defmacro df (val) 
+  (let ((nv (coerce val 'double-float))) nv))
+
+(defmacro mt (x y z w)
+  (let ((nx (coerce x 'double-float))
+        (ny (coerce y 'double-float))
+        (nz (coerce z 'double-float))
+        (nw (coerce w 'double-float)))
+    `(make-tuple ,nx ,ny ,nz ,nw)))
+
+(defmacro mv (x y z)
+  (let ((nx (coerce x 'double-float))
+        (ny (coerce y 'double-float))
+        (nz (coerce z 'double-float)))
+    `(make-vector ,nx ,ny ,nz)))
+
+(defmacro mp (x y z)
+  (let ((nx (coerce x 'double-float))
+        (ny (coerce y 'double-float))
+        (nz (coerce z 'double-float)))
+    `(make-point ,nx ,ny ,nz)))
+
+
 (deftest test-tuples
   (let ((tup (make-tuple 4.3d0 -4.2d0 3.1d0 1.0d0)))
     (testing "should be true"
@@ -123,10 +146,10 @@
     (testing "should be true"
       (ok (= (dot v1 v2) 20.0d0)))
     )
-  (let ((v1 (make-vector 1.0d0 2.0d0 3.0d0))
-        (v2 (make-vector 2.0d0 3.0d0 4.0d0)))
+  (let ((v1 (mv 1 2 3))
+        (v2 (mv 2 3 4)))
     (testing "should be true"
-      (ok (equalp (cross v1 v2) (make-vector -1.0d0 2.0d0 -1.0d0)))
-      (ok (equalp (cross v2 v1) (make-vector 1.0d0 -2.0d0  1.0d0))))
+      (ok (equalp (cross v1 v2) (mv -1 2 -1)))
+      (ok (equalp (cross v2 v1) (mv 1 -2  1))))
     )  
   )

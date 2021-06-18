@@ -4,7 +4,7 @@
   (:export :make-matrix :set-xy :get-xy
    :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
    :transpose :determinant :submatrix :minor :cofactor
-           :inverse))
+           :inverse :transform))
 
 (in-package :matrix)
 
@@ -108,3 +108,13 @@
             (dotimes (col (matrix-dim m))
               (set-xy result col row (/  (cofactor m row col) det))))
           result))))
+
+(defun transform (x y z)
+  (let ((ans #2A ((1.0d0 0.0d0 0.0d0 0.0d0)
+                  (0.0d0 1.0d0 0.0d0 0.0d0)
+                  (0.0d0 0.0d0 1.0d0 0.0d0)
+                  (0.0d0 0.0d0 0.0d0 1.0d0))))
+    (set-xy ans 0 3 x)
+    (set-xy ans 1 3 y)
+    (set-xy ans 2 3 z)
+    ans))

@@ -5,6 +5,16 @@
 (in-package :lispray/tests/matrix)
 
 ;; NOTE: To run this test file, execute `(asdf:test-system :tuples)' in your Lisp.
+(defmacro df (val) 
+  (let ((nv (coerce val 'double-float))) nv))
+
+(defun mtrx (m)
+  (let ((ans (make-matrix (matrix-dim m))))
+    (dotimes (row (matrix-dim m))
+      (dotimes (col (matrix-dim m))
+        (set-xy ans row col (coerce (get-xy m row col) 'double-float))
+        ))
+    ans))
 
 (deftest test-matrix
   (let ((mat #2A((1.0d0 2.0d0 3.0d0 4.0d0)
@@ -234,14 +244,14 @@
     (testing "should be true"
       (ok (equals? (inverse mat1) ans)))
     )
-  (let* ((a #2A((3.0d0 -9.0d0 7.0d0 3.0d0)
-               (3.0d0 -8.0d0 2.0d0 -9.0d0)
-               (-4.0d0 4.0d0 4.0d0 1.0d0)
-               (-6.0d0 5.0d0 -1.0d0 1.0d0)))
-         (b #2A((8.0d0 2.0d0 2.0d0 2.0d0)
-               (3.0d0 -1.0d0 7.0d0 0.0d0)
-               (7.0d0 0.0d0 5.0d0 4.0d0)
-               (6.0d0 -2.0d0 0.0d0 5.0d0)))
+  (let* ((a (mtrx #2A((3 -9 7 3)
+                      (3 -8 2 -9)
+                      (-4 4 4 1)
+                      (-6 5 -1 1))))
+         (b (mtrx #2A((8 2 2 2)
+                      (3 -1 7 0)
+                      (7 0 5 4)
+                      (6 -2 0 5))))
          (c (mul a b))
          (invb (inverse b))
          (cmulinvb (mul c invb)))
@@ -252,4 +262,20 @@
                                 (-3.9999999999999996d0 3.9999999999999996d0
                                                        3.9999999999999982d0 0.9999999999999993d0)
                                 (-6.0d0 5.0d0 -1.0d0 0.9999999999999998d0))))))
+  )
+
+(deftest matrix-transform
+  (let ((tr (transform 5.0d0 -3.0d0 2.0d0))
+        (p (tuples:make-point -3.0d0 4.0d0 5.0d0)))
+    (ok (equalp (mul-tup tr p) (tuples:make-point 2.0d0 1.0d0 7.0d0)))
+    )
+  (let* ((tr (transform 5.0d0 -3.0d0 2.0d0))
+        (inv (inverse tr))
+        (p (tuples:make-point -3.0d0 4.0d0 5.0d0)))
+    (ok (equalp (mul-tup inv p) (tuples:make-point -8.0d0 7.0d0 3.0d0)))
+    )
+  (let ((tr (transform 5.0d0 -3.0d0 2.0d0))
+        (v (tuples:make-vector -3.0d0 4.0d0 5.0d0)))
+    (ok (equalp (mul-tup tr v) v))
+    )
   )
