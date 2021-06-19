@@ -4,7 +4,7 @@
   (:export :make-matrix :set-xy :get-xy
    :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
    :transpose :determinant :submatrix :minor :cofactor
-           :inverse :transform))
+           :inverse :transform :scaling))
 
 (in-package :matrix)
 
@@ -117,4 +117,27 @@
     (set-xy ans 0 3 x)
     (set-xy ans 1 3 y)
     (set-xy ans 2 3 z)
+    ans))
+
+(defun scaling (x y z)
+  (let ((ans #2A ((1.0d0 0.0d0 0.0d0 0.0d0)
+                  (0.0d0 1.0d0 0.0d0 0.0d0)
+                  (0.0d0 0.0d0 1.0d0 0.0d0)
+                  (0.0d0 0.0d0 0.0d0 1.0d0))))
+    (set-xy ans 0 0 x)
+    (set-xy ans 1 1 y)
+    (set-xy ans 2 2 z)
+    ans))
+
+(defun rotation_x (ang)
+  (let ((ans #2A ((1.0d0 0.0d0 0.0d0 0.0d0)
+                  (0.0d0 1.0d0 0.0d0 0.0d0)
+                  (0.0d0 0.0d0 1.0d0 0.0d0)
+                  (0.0d0 0.0d0 0.0d0 1.0d0)))
+        (cosang (cos ang))
+        (sinang (sin ang)))
+    (set-xy ans 1 1 cosang)
+    (set-xy ans 2 2 cosang)
+    (set-xy ans 2 1 sinang)
+    (set-xy ans 1 2 (- sinang))
     ans))
