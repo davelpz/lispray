@@ -319,3 +319,25 @@
     (ok (tup-eql half-turn-inv (tuples:make-point 0.0d0 (/ (sqrt 2.0d0) 2.0d0) (- (/ (sqrt 2.0d0) 2.0d0)))))
     (ok (tup-eql full-turn (tuples:make-point 0.0d0 0.0d0 1.0d0)))
     ))
+
+(deftest matrix-rotation-y
+  (let* ((p (tuples:make-point 0.0d0 0.0d0 1.0d0))
+         (half-quarter (rotation_y (/ pi 4.0d0)))
+         (half-turn (mul-tup half-quarter p))
+         (full-quarter (rotation_y (/ pi 2.0d0)))
+         (full-turn (mul-tup full-quarter p))
+         )
+    (ok (tup-eql half-turn (tuples:make-point (/ (sqrt 2.0d0) 2.0d0) 0.0d0 (/ (sqrt 2.0d0) 2.0d0))))
+    (ok (tup-eql full-turn (tuples:make-point 1.0d0 0.0d0 0.0d0)))
+    ))
+
+(deftest matrix-rotation-z
+  (let* ((p (tuples:make-point 0.0d0 1.0d0 0.0d0))
+         (half-quarter (rotation_z (/ pi 4.0d0)))
+         (half-turn (mul-tup half-quarter p))
+         (full-quarter (rotation_z (/ pi 2.0d0)))
+         (full-turn (mul-tup full-quarter p))
+         )
+    (ok (tup-eql half-turn (tuples:make-point (/ (- (sqrt 2.0d0)) 2.0d0) (/ (sqrt 2.0d0) 2.0d0) 0.0d0)))
+    (ok (tup-eql full-turn (tuples:make-point -1.0d0 0.0d0 0.0d0)))
+    ))
