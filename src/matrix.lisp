@@ -4,8 +4,8 @@
   (:export :make-matrix :set-xy :get-xy
    :matrix-p :equals? :matrix-dim :mul :mul-tup :identity4
    :transpose :determinant :submatrix :minor :cofactor
-           :inverse :transform :scaling :rotation_x
-           :rotation_y :rotation_z))
+           :inverse :translation :scaling :rotation_x
+           :rotation_y :rotation_z :shearing))
 
 (in-package :matrix)
 
@@ -110,7 +110,7 @@
               (set-xy result col row (/  (cofactor m row col) det))))
           result))))
 
-(defun transform (x y z)
+(defun translation (x y z)
   (let ((ans (make-matrix 4)))
     (set-xy ans 0 0 1.0d0)
     (set-xy ans 1 1 1.0d0)
@@ -164,3 +164,17 @@
     (set-xy ans 0 1 (- sinang))
     (set-xy ans 3 3 1.0d0)
     ans))
+
+(defun shearing(xy xz yx yz zx zy)
+  (let ((ans (make-matrix 4)))
+    (set-xy ans 0 0 1.0d0)
+    (set-xy ans 1 1 1.0d0)
+    (set-xy ans 2 2 1.0d0)
+    (set-xy ans 3 3 1.0d0)
+    (set-xy ans 0 1 xy) 
+    (set-xy ans 0 2 xz) 
+    (set-xy ans 1 0 yx) 
+    (set-xy ans 1 2 yz) 
+    (set-xy ans 2 0 zx) 
+    (set-xy ans 2 1 zy) 
+    ans ))
