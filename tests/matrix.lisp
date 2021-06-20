@@ -299,3 +299,23 @@
     (ok (equalp (mul-tup tr p) (tuples:make-point -2.0d0 3.0d0 4.0d0)))
     )
   )
+
+(defun tup-eql (t1 t2)
+  (and (< (abs (- (tuples:get-x t1) (tuples:get-x t2))) 0.0000001d0)
+       (< (abs (- (tuples:get-y t1) (tuples:get-y t2))) 0.0000001d0)
+       (< (abs (- (tuples:get-z t1) (tuples:get-z t2))) 0.0000001d0)
+       (< (abs (- (tuples:get-w t1) (tuples:get-w t2))) 0.0000001d0)))
+
+(deftest matrix-rotation-x
+  (let* ((p (tuples:make-point 0.0d0 1.0d0 0.0d0))
+         (half-quarter (rotation_x (/ pi 4.0d0)))
+         (half-quarter-inv (inverse half-quarter))
+         (half-turn (mul-tup half-quarter p))
+         (half-turn-inv (mul-tup half-quarter-inv p))
+         (full-quarter (rotation_x (/ pi 2.0d0)))
+         (full-turn (mul-tup full-quarter p))
+         )
+    (ok (tup-eql half-turn (tuples:make-point 0.0d0 (/ (sqrt 2.0d0) 2.0d0) (/ (sqrt 2.0d0) 2.0d0))))
+    (ok (tup-eql half-turn-inv (tuples:make-point 0.0d0 (/ (sqrt 2.0d0) 2.0d0) (- (/ (sqrt 2.0d0) 2.0d0)))))
+    (ok (tup-eql full-turn (tuples:make-point 0.0d0 0.0d0 1.0d0)))
+    ))
