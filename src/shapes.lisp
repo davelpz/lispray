@@ -1,0 +1,28 @@
+(defpackage shapes
+  (:use :cl)
+  (:export :sphere :intersect))
+
+(in-package :shapes)
+
+(defclass sphere () ())
+
+(defun intersect (s r)
+  (let* ((sphere-to-ray (tuples:sub (ray:origin r) (tuples:make-point 0.0d0 0.0d0 0.0d0)))
+         (rdirection (ray:direction r))
+         (a (tuples:dot rdirection rdirection))
+         (b (* 2.0d0 (tuples:dot rdirection sphere-to-ray)))
+         (c (- (tuples:dot sphere-to-ray sphere-to-ray) 1.0d0))
+         (discriminant (- (* b b) (* 4.0d0 a c))))
+    (if (< discriminant 0.0d0)
+        (values () ())
+        (let* ((sqrdis (sqrt discriminant))
+               (a2 (* 2.0d0 a))
+               (ans1 (/ (- (- b) sqrdis) a2))
+               (ans2 (/ (+ (- b) sqrdis) a2)))
+          (if (< ans1 ans2)
+              (values ans1 ans2)
+              (values ans2 ans1))
+          )
+        )
+    )
+  )
