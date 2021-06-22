@@ -5,8 +5,9 @@
   :depends-on ()
   :components ((:module "src"
                 :components
-                ((:file "main") (:file "tuples") (:file "colors") (:file "canvas") (:file "matrix")
-                 (:file "ray") (:file "shapes"))))
+                ((:file "main") (:file "tuples") (:file "colors") (:file "canvas" :depends-on ("colors"))
+                 (:file "matrix" :depends-on ("tuples")) 
+                 (:file "ray" :depends-on ("tuples" "matrix")) (:file "shapes"))))
   :description ""
   :in-order-to ((test-op (test-op "lispray/tests"))))
 
