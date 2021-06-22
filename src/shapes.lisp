@@ -1,10 +1,13 @@
 (defpackage shapes
   (:use :cl)
-  (:export :sphere :intersect))
+  (:export :sphere :make-sphere :intersect))
 
 (in-package :shapes)
 
 (defclass sphere () ())
+
+(defmacro make-sphere ()
+  `(make-instance 'sphere))
 
 (defun intersect (s r)
   (let* ((sphere-to-ray (tuples:sub (ray:origin r) (tuples:make-point 0.0d0 0.0d0 0.0d0)))
